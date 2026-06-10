@@ -6,19 +6,3 @@ document.querySelectorAll('.nav-btn').forEach(function (btn) {
     document.getElementById(btn.dataset.section).classList.add('active');
   });
 });
-
-if ('serviceWorker' in navigator) {
-  var swReady = navigator.serviceWorker.register('/sw.js').then(function () {
-    if (navigator.serviceWorker.controller) return;
-    return new Promise(function (r) {
-      navigator.serviceWorker.addEventListener('controllerchange', r, { once: true });
-    });
-  });
-
-  document.addEventListener('click', function (e) {
-    var link = e.target.closest('a[href*="/files/"]');
-    if (!link) return;
-    e.preventDefault();
-    swReady.then(function () { location.href = link.href; });
-  });
-}
